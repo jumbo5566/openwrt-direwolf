@@ -37,18 +37,18 @@ index 29723a6..68d4b78 100644
  	  else {
  	    if ( ! A->g_quiet) {
 diff --git a/src/direwolf.c b/src/direwolf.c
-index 10c6cb1..ff147e6 100644
+index 10c6cb1..489d6a2 100644
 --- a/src/direwolf.c
 +++ b/src/direwolf.c
-@@ -205,7 +205,7 @@ int main (int argc, char *argv[])
- 	char input_file[80];
- 	char T_opt_timestamp[40];
- 	
--	int t_opt = 1;		/* Text color option. */				
-+	int t_opt = 0;		/* Text color option. */				
- 	int a_opt = 0;		/* "-a n" interval, in seconds, for audio statistics report.  0 for none. */
- 	int g_opt = 0;		/* G3RUH mode, ignoring default for speed. */				
- 	int j_opt = 0;		/* 2400 bps PSK compatible with direwolf <= 1.5 */
+@@ -289,7 +289,7 @@ int main (int argc, char *argv[])
+ 	// Might want to print OS version here.   For Windows, see:
+ 	// https://msdn.microsoft.com/en-us/library/ms724451(v=VS.85).aspx
+ 
+-	text_color_init(t_opt);
++	text_color_init(0);
+ 	text_color_set(DW_COLOR_INFO);
+ 	//dw_printf ("Dire Wolf version %d.%d (%s) Beta Test 4\n", MAJOR_VERSION, MINOR_VERSION, __DATE__);
+ 	dw_printf ("Dire Wolf DEVELOPMENT version %d.%d %s (%s)\n", MAJOR_VERSION, MINOR_VERSION, "A", __DATE__);
 diff --git a/src/dwgpsnmea.c b/src/dwgpsnmea.c
 index 4d63618..989d695 100644
 --- a/src/dwgpsnmea.c
