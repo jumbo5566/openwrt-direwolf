@@ -1,0 +1,73 @@
+diff --git a/external/misc/CMakeLists.txt b/external/misc/CMakeLists.txt
+index 16125d0..946dcb4 100644
+--- a/external/misc/CMakeLists.txt
++++ b/external/misc/CMakeLists.txt
+@@ -20,17 +20,13 @@ if(LINUX)
+ # If we kept going, the same thing could be done for each
+ # of the functions and no OS check would be needed.
+ 
+-  if (NOT HAVE_STRLCPY)
+     list(APPEND misc_SOURCES
+       ${CUSTOM_MISC_DIR}/strlcpy.c
+       )
+-  endif()
+ 
+-  if (NOT HAVE_STRLCAT)
+     list(APPEND misc_SOURCES
+       ${CUSTOM_MISC_DIR}/strlcat.c
+       )
+-  endif()
+ 
+   add_library(misc STATIC
+     ${misc_SOURCES}
+diff --git a/src/decode_aprs.c b/src/decode_aprs.c
+index 29723a6..68d4b78 100644
+--- a/src/decode_aprs.c
++++ b/src/decode_aprs.c
+@@ -3922,11 +3922,7 @@ static void decode_tocall (decode_aprs_t *A, char *dest)
+  * models before getting to the more generic APY.
+  */
+ 
+-#if defined(__WIN32__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__APPLE__)
+ 	    qsort (tocalls, num_tocalls, sizeof(struct tocalls_s), tocall_cmp);
+-#else
+-	    qsort (tocalls, num_tocalls, sizeof(struct tocalls_s), (__compar_fn_t)tocall_cmp);
+-#endif
+ 	  }
+ 	  else {
+ 	    if ( ! A->g_quiet) {
+diff --git a/src/direwolf.c b/src/direwolf.c
+index 10c6cb1..489d6a2 100644
+--- a/src/direwolf.c
++++ b/src/direwolf.c
+@@ -289,7 +289,7 @@ int main (int argc, char *argv[])
+ 	// Might want to print OS version here.   For Windows, see:
+ 	// https://msdn.microsoft.com/en-us/library/ms724451(v=VS.85).aspx
+ 
+-	text_color_init(t_opt);
++	text_color_init(0);
+ 	text_color_set(DW_COLOR_INFO);
+ 	//dw_printf ("Dire Wolf version %d.%d (%s) Beta Test 4\n", MAJOR_VERSION, MINOR_VERSION, __DATE__);
+ 	dw_printf ("Dire Wolf DEVELOPMENT version %d.%d %s (%s)\n", MAJOR_VERSION, MINOR_VERSION, "A", __DATE__);
+diff --git a/src/dwgpsnmea.c b/src/dwgpsnmea.c
+index 4d63618..989d695 100644
+--- a/src/dwgpsnmea.c
++++ b/src/dwgpsnmea.c
+@@ -148,7 +148,7 @@ int dwgpsnmea_init (struct misc_config_s *pconfig, int debug)
+  * Should add an option to allow changing someday.
+  */
+ 
+-	s_gpsnmea_port_fd = serial_port_open (pconfig->gpsnmea_port, 4800);
++	s_gpsnmea_port_fd = serial_port_open (pconfig->gpsnmea_port, 9600);
+ 
+ 	if (s_gpsnmea_port_fd != MYFDERROR) {
+ #if __WIN32__
+@@ -187,7 +187,7 @@ int dwgpsnmea_init (struct misc_config_s *pconfig, int debug)
+ 
+ MYFDTYPE dwgpsnmea_get_fd(char *wp_port_name, int speed)
+ {
+-	if (strcmp(s_save_configp->gpsnmea_port, wp_port_name) == 0 && speed == 4800) {
++	if (strcmp(s_save_configp->gpsnmea_port, wp_port_name) == 0 && speed == 9600) {
+ 	  return (s_gpsnmea_port_fd);
+ 	}
+ 	return (MYFDERROR);
