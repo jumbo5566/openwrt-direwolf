@@ -1,41 +1,36 @@
 diff --git a/external/misc/CMakeLists.txt b/external/misc/CMakeLists.txt
-index 16125d0..946dcb4 100644
+index 16125d0..624cddf 100644
 --- a/external/misc/CMakeLists.txt
 +++ b/external/misc/CMakeLists.txt
-@@ -20,17 +20,13 @@ if(LINUX)
+@@ -20,13 +20,13 @@ if(LINUX)
  # If we kept going, the same thing could be done for each
  # of the functions and no OS check would be needed.
  
 -  if (NOT HAVE_STRLCPY)
++  if (TRUE)
      list(APPEND misc_SOURCES
        ${CUSTOM_MISC_DIR}/strlcpy.c
        )
--  endif()
+   endif()
  
 -  if (NOT HAVE_STRLCAT)
++  if (TRUE)
      list(APPEND misc_SOURCES
        ${CUSTOM_MISC_DIR}/strlcat.c
        )
--  endif()
- 
-   add_library(misc STATIC
-     ${misc_SOURCES}
 diff --git a/src/decode_aprs.c b/src/decode_aprs.c
-index 29723a6..68d4b78 100644
+index 29723a6..92e05b3 100644
 --- a/src/decode_aprs.c
 +++ b/src/decode_aprs.c
-@@ -3922,11 +3922,7 @@ static void decode_tocall (decode_aprs_t *A, char *dest)
+@@ -3922,7 +3922,7 @@ static void decode_tocall (decode_aprs_t *A, char *dest)
   * models before getting to the more generic APY.
   */
  
 -#if defined(__WIN32__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__APPLE__)
++#if 1
  	    qsort (tocalls, num_tocalls, sizeof(struct tocalls_s), tocall_cmp);
--#else
--	    qsort (tocalls, num_tocalls, sizeof(struct tocalls_s), (__compar_fn_t)tocall_cmp);
--#endif
- 	  }
- 	  else {
- 	    if ( ! A->g_quiet) {
+ #else
+ 	    qsort (tocalls, num_tocalls, sizeof(struct tocalls_s), (__compar_fn_t)tocall_cmp);
 diff --git a/src/direwolf.c b/src/direwolf.c
 index 10c6cb1..489d6a2 100644
 --- a/src/direwolf.c
