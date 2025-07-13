@@ -26,7 +26,7 @@ define Package/direwolf
   CATEGORY:=Utilities
   TITLE:=AX.25 soundcard TNC, digipeater, APRS IGate, GPS tracker, and APRStt gateway
   URL:=https://github.com/wb2osz/direwolf/
-  DEPENDS:= +alsa-lib +libudev
+  DEPENDS:= +alsa-lib +libudev-zero
 endef
 
 define Package/direwolf/description
