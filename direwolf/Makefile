@@ -36,6 +36,7 @@ endef
 define Package/direwolf/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/direwolf $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/cm108 $(1)/usr/bin
 endef
 
 $(eval $(call BuildPackage,direwolf))
